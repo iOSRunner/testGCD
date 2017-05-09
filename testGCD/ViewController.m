@@ -22,8 +22,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    
-    [self testTimer];
+    //移除timer测试的入口
+//    [self testTimer];
     
     
 }
