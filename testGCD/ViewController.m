@@ -13,6 +13,8 @@
 @property(atomic ,strong) dispatch_queue_t queue;
 @property(atomic, strong) dispatch_source_t source;
 
+@property(atomic, strong) NSInvocationOperation *vO;
+
 @end
 
 @implementation ViewController
@@ -25,10 +27,34 @@
     //移除timer测试的入口
 //    [self testTimer];
     
-    
+ 
+    [self testOperation];
 }
 
 
+#pragma mark - operation
+
+- (void)testOperation
+{
+    NSInvocationOperation *vO = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(test) object:nil];
+    _vO = vO;
+    
+    [vO start];
+    
+    NSLog(@"_vO.result = %@", _vO.result);
+    
+    
+}
+
+- (NSDictionary*)test
+{
+    NSLog(@"test exccuted, Thread: %@", [NSThread currentThread]);
+    
+    return @{@"name" : @"gwl", @"age" : @"30"};
+}
+
+
+#pragma mark - timer
 - (void)testTimer
 {
     NSLog(@"Start Timer: %@, Thread: %@", [NSDate date], [NSThread currentThread]);
