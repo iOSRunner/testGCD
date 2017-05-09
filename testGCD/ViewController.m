@@ -15,6 +15,8 @@
 
 @property(atomic, strong) NSInvocationOperation *vO;
 
+@property(atomic, strong) NSBlockOperation *bO;
+
 @end
 
 @implementation ViewController
@@ -28,11 +30,32 @@
 //    [self testTimer];
     
  
-    [self testOperation];
+//    [self testOperation];
+    
+
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [weakSelf testBlockOperation];
+    });
+    
 }
 
 
 #pragma mark - operation
+
+
+- (void)testBlockOperation
+{
+    NSBlockOperation *bO = [NSBlockOperation blockOperationWithBlock:^{
+        NSLog(@"test exccuted, Thread: %@", [NSThread currentThread]);
+    }];
+    
+    _bO = bO;
+    
+    [_bO start];
+    
+    
+}
 
 - (void)testOperation
 {
