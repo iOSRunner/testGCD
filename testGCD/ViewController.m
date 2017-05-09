@@ -22,6 +22,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
+    
+    [self testTimer];
+    
+    
+}
+
+
+- (void)testTimer
+{
     NSLog(@"Start Timer: %@, Thread: %@", [NSDate date], [NSThread currentThread]);
     
     dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0);
@@ -31,9 +40,6 @@
         
         [self handler];
     });
-    
-    
-    
 }
 
 - (void)handler
